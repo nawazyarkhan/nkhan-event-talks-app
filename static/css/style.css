@@ -535,6 +535,44 @@ body {
     color: var(--primary);
 }
 
+.card-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.btn-card-copy {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 0.85rem;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+    opacity: 0;
+}
+
+.release-item-card:hover .btn-card-copy {
+    opacity: 0.7;
+}
+
+.release-item-card:hover .btn-card-copy:hover {
+    opacity: 1;
+    color: var(--text-primary);
+    transform: scale(1.15);
+}
+
+.release-item-card.selected .btn-card-copy {
+    opacity: 0.7;
+}
+
+.release-item-card.selected .btn-card-copy:hover {
+    opacity: 1;
+}
+
 .release-card-body {
     color: var(--text-secondary);
     font-size: 0.925rem;

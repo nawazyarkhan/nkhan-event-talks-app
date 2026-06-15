@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // DOM Elements
     const refreshBtn = document.getElementById('refresh-btn');
+    const exportCsvBtn = document.getElementById('export-csv-btn');
     const lastUpdatedSpan = document.getElementById('last-updated');
     const feedContainer = document.getElementById('feed-container');
     const searchInput = document.getElementById('search-input');
@@ -229,9 +230,14 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div class="card-meta">
                                 <span class="${badgeClass}">${update.type}</span>
                             </div>
-                            <div class="card-select-indicator">
-                                <i class="fa-solid ${isSelected ? 'fa-circle-check' : 'fa-circle'}"></i>
-                                <span>${isSelected ? 'Selected' : 'Select'}</span>
+                            <div class="card-header-actions">
+                                <button class="btn-card-copy" data-id="${update.id}" title="Copy description to clipboard" aria-label="Copy description">
+                                    <i class="fa-regular fa-copy"></i>
+                                </button>
+                                <div class="card-select-indicator">
+                                    <i class="fa-solid ${isSelected ? 'fa-circle-check' : 'fa-circle'}"></i>
+                                    <span>${isSelected ? 'Selected' : 'Select'}</span>
+                                </div>
                             </div>
                         </div>
                         <div class="release-card-body">
@@ -253,6 +259,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 const updateObj = parsedUpdates.find(u => u.id === updateId);
                 if (updateObj) {
                     selectUpdateItem(updateObj);
+                }
+            });
+        });
+
+        // Attach click handlers to card copy buttons
+        document.querySelectorAll('.btn-card-copy').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent card selection click event
+                const updateId = btn.getAttribute('data-id');
+                const updateObj = parsedUpdates.find(u => u.id === updateId);
+                if (updateObj) {
+                    navigator.clipboard.writeText(updateObj.text).then(() => {
+                        showToast('Description copied to clipboard!');
+                    }).catch(err => {
+                        console.error('Copy failed:', err);
+                        // Fallback copy
+                        const el = document.createElement('textarea');
+                        el.value = updateObj.text;
+                        document.body.appendChild(el);
+                        el.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(el);
+                        showToast('Description copied to clipboard!');
+                    });
                 }
             });
         });
@@ -423,6 +453,58 @@ document.addEventListener('DOMContentLoaded', () => {
             renderFeed();
         });
     });
+
+    // Export currently filtered updates to CSV
+    function exportToCSV() {
+        // Filter updates exactly like renderFeed does
+        const filtered = parsedUpdates.filter(update => {
+            const matchesFilter = currentFilter === 'all' || update.normalizedType.includes(currentFilter);
+            const matchesSearch = searchQuery === '' || 
+                update.date.toLowerCase().includes(searchQuery) ||
+                update.type.toLowerCase().includes(searchQuery) ||
+                update.text.toLowerCase().includes(searchQuery);
+            
+            return matchesFilter && matchesSearch;
+        });
+
+        if (filtered.length === 0) {
+            showToast('No data to export.');
+            return;
+        }
+
+        // CSV Headers
+        let csvContent = "\ufeffDate,Type,Description,Link\n"; // Added BOM for Excel UTF-8 support
+
+        filtered.forEach(update => {
+            // Escape double quotes inside values by doubling them
+            const escapeCSV = (str) => `"${str.replace(/"/g, '""')}"`;
+            
+            const dateVal = escapeCSV(update.date);
+            const typeVal = escapeCSV(update.type);
+            const textVal = escapeCSV(update.text);
+            const linkVal = escapeCSV(update.link);
+            
+            csvContent += `${dateVal},${typeVal},${textVal},${linkVal}\n`;
+        });
+
+        // Trigger file download
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        const timestamp = new Date().toISOString().slice(0, 10);
+        
+        link.setAttribute("href", url);
+        link.setAttribute("download", `bigquery_release_notes_${timestamp}.csv`);
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        showToast('Exported filtered data to CSV!');
+    }
+
+    // Export CSV button listener
+    exportCsvBtn.addEventListener('click', exportToCSV);
 
     // Refresh button listener
     refreshBtn.addEventListener('click', () => {
