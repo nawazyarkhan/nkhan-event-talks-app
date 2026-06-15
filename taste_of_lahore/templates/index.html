@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taste of Lahore | Authentic Home-Cooked Lahori Delicacies</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <i class="fa-solid fa-fire-burner logo-icon"></i>
+                <span class="logo-text">Taste of Lahore</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">Our Story</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#order">Order Now</a></li>
+            </ul>
+            <div class="nav-socials">
+                <a href="https://www.instagram.com/taste.of.lahore/" target="_blank" rel="noopener noreferrer" class="social-icon" title="Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://wa.me/923001234567" target="_blank" rel="noopener noreferrer" class="social-icon whatsapp" title="Direct WhatsApp Chat">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <span class="hero-subtitle">Lahore's Heritage on Your Plate</span>
+            <h1 class="hero-title">Authentic Home-Cooked Lahori Delicacies</h1>
+            <p class="hero-description">Freshly prepared, spice-rich, and crafted with decades of inherited family recipes. Taste the love of home cooking, delivered directly to your doorstep in Lahore.</p>
+            <div class="hero-actions">
+                <a href="#menu" class="btn btn-primary">Explore Signature Menu</a>
+                <a href="#order" class="btn btn-secondary">
+                    <i class="fa-brands fa-whatsapp"></i> Order Directly
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="section-container">
+            <div class="about-grid">
+                <div class="about-image-wrapper">
+                    <div class="about-image-glow"></div>
+                    <img src="/static/images/hero_bg.jpg" alt="Lahori Spices" class="about-image">
+                </div>
+                <div class="about-info">
+                    <span class="section-badge">Our Story</span>
+                    <h2 class="section-title">Bringing Lahore's Spice Bazars to Your Home</h2>
+                    <p>At <strong>Taste of Lahore</strong>, we believe food is a celebration of heritage. Running as a dedicated home kitchen, we slow-cook our dishes in small batches, ensuring every pot of Biryani and Karahi receives the precise balance of freshly roasted, hand-ground spices.</p>
+                    <p>Whether it's the rich aroma of saffron in our long-grain Biryani or the smoky charred goodness of beef seekh kababs, we bring you the authentic taste of Lahore's legendary food streets, made cleanly and healthily in a home environment.</p>
+                    <div class="about-highlights">
+                        <div class="highlight-item">
+                            <i class="fa-solid fa-pepper-hot"></i>
+                            <span>100% Fresh Spices</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fa-solid fa-house-chimney-user"></i>
+                            <span>Hygienic Home Kitchen</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fa-solid fa-truck-ramp-box"></i>
+                            <span>Next-Day Delivery</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="menu-section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-badge">Signature Selection</span>
+                <h2 class="section-title">Explore Our Menu</h2>
+                <p class="section-subtitle">Select your favorite dishes to add to your order. We require orders at least 24 hours in advance to guarantee freshness.</p>
+            </div>
+
+            <!-- Category Filter Tabs -->
+            <div class="menu-filters">
+                <button class="filter-tab active" data-category="all">All Dishes</button>
+                <button class="filter-tab" data-category="mains">Mains</button>
+                <button class="filter-tab" data-category="sides">Sides & Kababs</button>
+                <button class="filter-tab" data-category="desserts">Desserts</button>
+            </div>
+
+            <!-- Menu Cards Container -->
+            <div id="menu-container" class="menu-grid">
+                <!-- Injected via JavaScript -->
+                <div class="menu-loading">
+                    <i class="fa-solid fa-circle-notch fa-spin loading-spinner"></i>
+                    <p>Loading Lahore's finest flavors...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order & Cart Section -->
+    <section id="order" class="order-section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-badge">Order Placement</span>
+                <h2 class="section-title">Your Order Cart</h2>
+                <p class="section-subtitle">Review your selected delicacies and enter details to send your order direct to the chef's WhatsApp.</p>
+            </div>
+
+            <div class="order-grid">
+                <!-- Cart Details (Left) -->
+                <div class="cart-card">
+                    <h3 class="card-heading"><i class="fa-solid fa-basket-shopping"></i> Selected Items</h3>
+                    <div id="cart-items-container" class="cart-items-container">
+                        <!-- Injected via JavaScript (Empty State by default) -->
+                        <div class="cart-empty">
+                            <i class="fa-solid fa-kitchen-set empty-cart-icon"></i>
+                            <p>Your cart is empty.</p>
+                            <span>Browse our menu above and add dishes to start cooking your order!</span>
+                        </div>
+                    </div>
+                    
+                    <div id="cart-summary" class="cart-summary hidden">
+                        <div class="summary-row">
+                            <span>Subtotal</span>
+                            <span id="cart-subtotal">Rs. 0</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Delivery Fee (Lahore city limits)</span>
+                            <span id="cart-delivery">Rs. 150</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Total Estimated Price</span>
+                            <span id="cart-total">Rs. 0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customer Details Form (Right) -->
+                <div class="form-card">
+                    <h3 class="card-heading"><i class="fa-solid fa-truck-fast"></i> Delivery details</h3>
+                    <form id="order-form" class="order-form">
+                        <div class="form-group">
+                            <label for="cust-name">Full Name *</label>
+                            <input type="text" id="cust-name" placeholder="Enter your name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="cust-phone">Contact Number *</label>
+                            <input type="tel" id="cust-phone" placeholder="e.g. 03001234567" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cust-address">Delivery Address *</label>
+                            <textarea id="cust-address" rows="3" placeholder="Enter your full address in Lahore" required></textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="delivery-date">Preferred Date *</label>
+                                <input type="date" id="delivery-date" required>
+                                <span class="form-help">24 hrs advance notice required</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="delivery-time">Preferred Time Slot *</label>
+                                <select id="delivery-time" required>
+                                    <option value="" disabled selected>Select slot</option>
+                                    <option value="Lunch (12:30 PM - 02:30 PM)">Lunch (12:30 PM - 02:30 PM)</option>
+                                    <option value="Afternoon Tea (04:00 PM - 06:00 PM)">Afternoon Tea (04:00 PM - 06:00 PM)</option>
+                                    <option value="Dinner (07:30 PM - 09:30 PM)">Dinner (07:30 PM - 09:30 PM)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="special-instructions">Spice Level & Special Instructions</label>
+                            <select id="spice-level" class="form-select-spacing">
+                                <option value="Medium (Authentic Lahori Spice)">Medium (Authentic Lahori Spice)</option>
+                                <option value="Mild (Less Spice)">Mild (Less Spice)</option>
+                                <option value="Spicy (Extra Heat)">Spicy (Extra Heat)</option>
+                            </select>
+                            <textarea id="special-instructions" rows="2" placeholder="Allergies, packaging instructions, or custom spice requests..."></textarea>
+                        </div>
+
+                        <button type="submit" id="btn-submit-order" class="btn btn-whatsapp-submit" disabled>
+                            <i class="fa-brands fa-whatsapp"></i> Send Order via WhatsApp
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instagram Feed Section -->
+    <section class="instagram-section">
+        <div class="section-container text-center">
+            <i class="fa-brands fa-instagram instagram-header-icon"></i>
+            <h2>Follow Our Culinary Journey</h2>
+            <p class="instagram-handle"><a href="https://www.instagram.com/taste.of.lahore/" target="_blank" rel="noopener noreferrer">@taste.of.lahore</a></p>
+            <p class="instagram-sub">Checkout our daily kitchen prep, customer reviews, and behind-the-scenes stories on Instagram!</p>
+            
+            <!-- Styled Instagram Grid Grid -->
+            <div class="insta-mockup-grid">
+                <a href="https://www.instagram.com/taste.of.lahore/" target="_blank" rel="noopener noreferrer" class="insta-grid-item">
+                    <img src="/static/images/biryani.jpg" alt="Insta Post Chicken Biryani">
+                    <div class="insta-overlay"><i class="fa-solid fa-heart"></i> 142</div>
+                </a>
+                <a href="https://www.instagram.com/taste.of.lahore/" target="_blank" rel="noopener noreferrer" class="insta-grid-item">
+                    <img src="/static/images/kabab.jpg" alt="Insta Post Kababs">
+                    <div class="insta-overlay"><i class="fa-solid fa-heart"></i> 98</div>
+                </a>
+                <a href="https://www.instagram.com/taste.of.lahore/" target="_blank" rel="noopener noreferrer" class="insta-grid-item">
+                    <img src="/static/images/kheer.jpg" alt="Insta Post Shahi Kheer">
+                    <div class="insta-overlay"><i class="fa-solid fa-heart"></i> 115</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="section-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>Taste of Lahore</h3>
+                    <p>Authentic, hygienic, and premium home-cooked meals delivering the true essence of Lahore's food culture. Made to order with love.</p>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact Us</h4>
+                    <p><i class="fa-solid fa-location-dot"></i> DHA Phase 5, Lahore, Pakistan</p>
+                    <p><i class="fa-brands fa-whatsapp"></i> +92 300 1234567 (WhatsApp Only)</p>
+                    <p><i class="fa-solid fa-envelope"></i> orders@tasteoflahore.pk</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">Our Story</a></li>
+                        <li><a href="#menu">Signature Menu</a></li>
+                        <li><a href="#order">Place Order</a></li>
+                        <li><a href="https://www.instagram.com/taste.of.lahore/" target="_blank" rel="noopener noreferrer">Instagram Feed</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Taste of Lahore. All rights reserved. Built with love for authentic Lahori cuisine.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS Logic -->
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
