@@ -315,6 +315,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Generate default tweet text
         generateDefaultTweet();
+
+        // Auto-scroll to composer on mobile layouts (width <= 1024px)
+        if (window.innerWidth <= 1024) {
+            composerCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
     }
 
     // Generate Tweet content
