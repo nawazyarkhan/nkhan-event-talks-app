@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BigQuery Release Notes Explorer</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- Background Gradient Blobs for Rich Aesthetics -->
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-logo">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-database"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>BigQuery</h1>
+                    <span>Release Notes Explorer</span>
+                </div>
+            </div>
+            <div class="header-actions">
+                <span id="last-updated" class="last-updated">Last updated: Never</span>
+                <button id="refresh-btn" class="btn btn-primary btn-refresh" aria-label="Refresh release notes">
+                    <i class="fa-solid fa-arrows-rotate spinner-icon"></i>
+                    <span>Refresh</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Layout -->
+        <main class="app-main">
+            <!-- Left Panel: Release Notes List -->
+            <section class="feed-section">
+                <!-- Filters and Search -->
+                <div class="filter-card">
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        <input type="text" id="search-input" placeholder="Search release notes by keywords...">
+                    </div>
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-type="all">All Updates</button>
+                        <button class="filter-tab" data-type="feature"><span class="badge badge-feature"></span> Features</button>
+                        <button class="filter-tab" data-type="fix"><span class="badge badge-fix"></span> Fixes</button>
+                        <button class="filter-tab" data-type="changed"><span class="badge badge-changed"></span> Changes</button>
+                        <button class="filter-tab" data-type="deprecated"><span class="badge badge-deprecated"></span> Deprecated</button>
+                    </div>
+                </div>
+
+                <!-- Feed Container -->
+                <div id="feed-container" class="feed-container">
+                    <!-- Loading state, error state, or feed cards will be injected here -->
+                    <div class="feed-loading">
+                        <i class="fa-solid fa-circle-notch fa-spin loading-spinner"></i>
+                        <p>Fetching BigQuery release notes...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Panel: Sticky Twitter Share & Composer -->
+            <section class="composer-section">
+                <div id="composer-card" class="composer-card empty">
+                    <!-- Empty State -->
+                    <div id="composer-empty" class="composer-empty">
+                        <div class="empty-icon">
+                            <i class="fa-brands fa-x-twitter"></i>
+                        </div>
+                        <h3>Share BigQuery Updates</h3>
+                        <p>Select any specific update card from the feed list to preview and compose a tweet about it.</p>
+                    </div>
+
+                    <!-- Composer Active State (Hidden initially) -->
+                    <div id="composer-active" class="composer-active hidden">
+                        <h3 class="composer-title"><i class="fa-solid fa-pen-nib"></i> Compose Tweet</h3>
+                        
+                        <!-- Selected Update Reference -->
+                        <div class="selected-update-ref">
+                            <div class="ref-meta">
+                                <span id="ref-date" class="ref-date">June 12, 2026</span>
+                                <span id="ref-badge" class="badge">Feature</span>
+                            </div>
+                            <p id="ref-snippet" class="ref-snippet">Snippet of the update...</p>
+                        </div>
+
+                        <!-- Tweet Preview (Mock Twitter Card) -->
+                        <div class="tweet-preview-card">
+                            <div class="tweet-header">
+                                <div class="tweet-avatar">
+                                    <i class="fa-solid fa-user-astronaut"></i>
+                                </div>
+                                <div class="tweet-author-info">
+                                    <span class="tweet-author-name">Cloud Explorer</span>
+                                    <span class="tweet-author-handle">@cloud_notes</span>
+                                </div>
+                                <i class="fa-brands fa-x-twitter tweet-platform-logo"></i>
+                            </div>
+                            <div class="tweet-body">
+                                <textarea id="tweet-textarea" rows="5" placeholder="What's happening?"></textarea>
+                            </div>
+                            
+                            <!-- Character Counter and Helper options -->
+                            <div class="tweet-footer">
+                                <div class="character-counter" id="char-counter">0 / 280</div>
+                                <div class="tweet-actions">
+                                    <button class="btn-icon" id="btn-shorten" title="Shorten content to fit limit">
+                                        <i class="fa-solid fa-scissors"></i>
+                                    </button>
+                                    <button class="btn-icon" id="btn-add-hashtags" title="Append hashtags">
+                                        <i class="fa-solid fa-hashtag"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Composer Buttons -->
+                        <div class="composer-actions">
+                            <button id="btn-copy" class="btn btn-secondary">
+                                <i class="fa-regular fa-copy"></i> Copy Text
+                            </button>
+                            <button id="btn-tweet" class="btn btn-tweet-post">
+                                <i class="fa-brands fa-x-twitter"></i> Post on X
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Notification system for Clipboard and success actions -->
+    <div id="toast" class="toast hidden">
+        <i class="fa-solid fa-circle-check toast-icon"></i>
+        <span id="toast-message">Copied to clipboard!</span>
+    </div>
+
+    <!-- App Logic -->
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
